@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+
+<application xmlns="http://ns.adobe.com/air/application/16.0">
+	<id>com.website.appName</id>
+	<versionNumber>1.0.0</versionNumber>
+	<filename>Test</filename>
+	<description/>
+	<name>Test</name>
+	<copyright/>
+	
+	<initialWindow>
+		<content>Test.swf</content>
+		<systemChrome>standard</systemChrome>
+		<transparent>false</transparent>
+		<visible>true</visible>
+		<fullScreen>true</fullScreen>
+		<aspectRatio>portrait</aspectRatio>
+		<renderMode>gpu</renderMode>
+		<autoOrients>false</autoOrients>
+	</initialWindow>
+		
+	<icon>
+		<image16x16>icons/iconx16.png</image16x16>
+		<image32x32>icons/iconx32.png</image32x32>
+		<image36x36>icons/iconx36.png</image36x36>
+		<image48x48>icons/iconx48.png</image48x48>
+		<image72x72>icons/iconx72.png</image72x72>
+		<image96x96>icons/iconx96.png</image96x96>
+		<image144x144>icons/iconx144.png</image144x144>
+		<image512x512>icons/iconx512.png</image512x512>
+	</icon>
+	
+	<customUpdateUI>false</customUpdateUI>
+	<allowBrowserInvocation>false</allowBrowserInvocation>
+	
+	<extensions>
+		<extensionID>com.extensions.example</extensionID>
+	</extensions>
+    
+    <android>
+		<manifestAdditions>
+		<![CDATA[
+			<manifest>
+				<uses-permission android:name="android.permission.INTERNET"/>
+
+			    <application>
+
+			    </application>
+			</manifest>
+		]]>
+		</manifestAdditions>
+	</android>
+</application>
