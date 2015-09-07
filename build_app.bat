@@ -15,6 +15,9 @@ set android_target=apk
 set android_debug_target=apk-debug
 set android_captive_runtime_target=apk-captive-runtime
 
+::: Amazon Variables :::
+set amazon_platform=amazon
+
 ::: Generic Variables :::
 set packaging_action=null
 set packaging_platform=null
@@ -34,8 +37,10 @@ set bundleid=null
 set true=true
 set false=false
 
+set none=none
+
 set both_platforms=both
-set both_compiled=false
+set last_compiled=none
 
 set compile=compile
 set compileremovepush=compileremovepush
@@ -54,7 +59,8 @@ echo Select Platform:
 echo.
 echo [1] iOS
 echo [2] Android
-echo [3] Both
+echo [3] Amazon
+echo [4] All
 echo.
 echo [0] Exit
 echo.
@@ -64,7 +70,8 @@ echo.
 
 if /I '%platformselection%'=='1' set packaging_platform=%ios_platform%
 if /I '%platformselection%'=='2' set packaging_platform=%android_platform%
-if /I '%platformselection%'=='3' set packaging_platform=%both_platforms%
+if /I '%platformselection%'=='3' set packaging_platform=%amazon_platform%
+if /I '%platformselection%'=='4' set packaging_platform=%both_platforms%
 if /I '%platformselection%'=='0' goto:quit
 goto:showCompiler
 
@@ -75,8 +82,10 @@ echo.
 echo Select Action:
 echo.
 echo [1] Compile
-echo [2] Compile/Remove/Push
-echo [3] Remove/Push
+
+if /I not '%packaging_platform%'=='%both_platforms%' echo [2] Compile/Remove/Push
+if /I not '%packaging_platform%'=='%both_platforms%' echo [3] Remove/Push
+
 echo.
 echo [0] Exit
 echo.
@@ -85,8 +94,17 @@ set /P actionselection=Action:
 echo.
 
 if /I '%actionselection%'=='1' set packaging_action=%compile%
-if /I '%actionselection%'=='2' set packaging_action=%compileremovepush%
-if /I '%actionselection%'=='3' set packaging_action=%removepush%
+
+if /I not '%packaging_platform%'=='%both_platforms%' (
+	if /I '%actionselection%'=='2' (
+		set packaging_action=%compileremovepush%
+	)
+	
+	if /I '%packaging_platform%'=='3' (
+		set packaging_action=%removepush%
+	)
+)
+
 if /I '%actionselection%'=='0' goto:quit
 goto:showCompilerTargets
 
@@ -98,6 +116,10 @@ if /I '%packaging_platform%'=='%ios_platform%' (
 	
 if /I '%packaging_platform%'=='%android_platform%' (
 	goto:compileForAndroid
+)
+
+if /I '%packaging_platform%'=='%amazon_platform%' (
+	goto:compileForAmazon
 )
 
 if /I '%packaging_platform%'=='%both_platforms%' (
@@ -117,13 +139,24 @@ if /I '%packaging_action%'=='%removepush%' (
 
 :compileForAndroid
 if /I '%packaging_action%'=='%removepush%' (
-	set filename=%ios_ipa%
-	set platform=%ios_platform%
-	set bundleid=%ios_bundle_id%
+	set filename=%android_apk%
+	set platform=%android_platform%
+	set bundleid=%android_bundle_id%
 	goto:packageApp
 	
 ) else (
 	goto:showAndroidTargets
+)
+
+:compileForAmazon
+if /I '%packaging_action%'=='%removepush%' (
+	set filename=%amazon_apk%
+	set platform=%amazon_platform%
+	set bundleid=%amazon_bundle_id%
+	goto:packageApp
+	
+) else (
+	goto:showAmazonTargets
 )
 
 :showIOSTargets
@@ -278,6 +311,61 @@ if /I '%androidtargetselection%'=='3' (
 if /I '%androidtargetselection%'=='0' goto:quit
 goto:packageApp
 
+:showAmazonTargets
+::: Android Target Selection :::
+echo ----------
+echo.
+echo Select Amazon Target:
+echo.
+echo [1] normal (apk)
+echo [2] debug (apk-debug)
+echo [3] captive runtime (apk-captive-runtime)
+echo.
+echo [0] Exit
+echo.
+set amazontargetselection=
+set /P amazontargetselection=Target: 
+echo.
+
+if /I '%amazontargetselection%'=='1' (
+	set target=%android_target%
+	set certificate=%amazon_certificate%
+	set password=%amazon_password%
+	set provisionalprofile=null
+	set filename=%amazon_apk%
+	set manifest=%amazon_manifest%
+	set swfname=%amazon_swf_name%
+	set platform=%amazon_platform%
+	set bundleid=%amazon_bundle_id%
+)
+
+if /I '%amazontargetselection%'=='2' (
+	set target=%android_debug_target%
+	set certificate=%amazon_certificate%
+	set password=%amazon_password%
+	set provisionalprofile=null
+	set filename=%amazon_apk%
+	set manifest=%amazon_manifest%
+	set swfname=%amazon_swf_name%
+	set platform=%amazon_platform%
+	set bundleid=%amazon_bundle_id%
+)
+
+if /I '%amazontargetselection%'=='3' (
+	set target=%android_captive_runtime_target%
+	set certificate=%amazon_certificate%
+	set password=%amazon_password%
+	set provisionalprofile=null
+	set filename=%amazon_apk%
+	set manifest=%amazon_manifest%
+	set swfname=%amazon_swf_name%
+	set platform=%amazon_platform%
+	set bundleid=%amazon_bundle_id%
+)
+
+if /I '%amazontargetselection%'=='0' goto:quit
+goto:packageApp
+
 :packageApp
 if /I '%packaging_action%'=='%compile%' goto:compileApp
 if /I '%packaging_action%'=='%compileremovepush%' goto:compileRemovePushApp
@@ -296,11 +384,26 @@ if /I '%platform%'=='%android_platform%' (
 	echo Compile for Android complete
 )
 
+if /I '%platform%'=='%amazon_platform%' (
+	call commands\compile_apk.bat %target% %certificate% %password% %provisionalprofile% %filename% %manifest% %swfname% %platform% %bundleid%
+	echo.
+	echo Compile for Amazon complete
+)
+
 if /I '%packaging_platform%'=='%both_platforms%' (
-	if /I '%both_compiled%'=='%false%' (
-		set both_compiled=%true%
+	if /I '%last_compiled%'=='%none%' (
+		set last_compiled=%ios_platform%
+		echo.
 		goto:compileForAndroid
-	) else (
+	)
+	
+	if /I '%last_compiled%'=='%ios_platform%' (
+		set last_compiled=%android_platform%
+		echo.
+		goto:compileForAmazon
+	)
+	
+	if /I '%last_compiled%'=='%android_platform%' (
 		echo.
 		echo ----------
 		echo.
@@ -326,46 +429,28 @@ if /I '%platform%'=='%android_platform%' (
 	echo Compile for Android complete
 )
 
+if /I '%platform%'=='%amazon_platform%' (
+	call commands\compile_apk.bat %target% %certificate% %password% %provisionalprofile% %filename% %manifest% %swfname% %platform% %bundleid%
+	echo.
+	echo Compile for Amazon complete
+)
+
 call commands\remove_from_device.bat %target% %certificate% %password% %provisionalprofile% %filename% %manifest% %swfname% %platform% %bundleid%
 call commands\push_to_device.bat %target% %certificate% %password% %provisionalprofile% %filename% %manifest% %swfname% %platform% %bundleid%
 
-if /I '%packaging_platform%'=='%both_platforms%' (
-	if /I '%both_compiled%'=='%false%' (
-		set both_compiled=%true%
-		goto:compileForAndroid
-	) else (
-		echo.
-		echo ----------
-		echo.
-		goto:quit
-	)
-) else (
-	echo.
-	echo ----------
-	echo.
-	goto:quit
-)
+echo.
+echo ----------
+echo.
+goto:quit
 
 :removePushApp
 call commands\remove_from_device.bat %target% %certificate% %password% %provisionalprofile% %filename% %manifest% %swfname% %platform% %bundleid%
 call commands\push_to_device.bat %target% %certificate% %password% %provisionalprofile% %filename% %manifest% %swfname% %platform% %bundleid%
 
-if /I '%packaging_platform%'=='%both_platforms%' (
-	if /I '%both_compiled%'=='%false%' (
-		set both_compiled=%true%
-		goto:compileForAndroid
-	) else (
-		echo.
-		echo ----------
-		echo.
-		goto:quit
-	)
-) else (
-	echo.
-	echo ----------
-	echo.
-	goto:quit
-)
+echo.
+echo ----------
+echo.
+goto:quit
 
 :quit
 PAUSE

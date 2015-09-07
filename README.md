@@ -1,7 +1,7 @@
-<b>Adobe AIR App Packager for Windows (.bat) and Mac (.sh) - iOS and Android</b>
+<b>Adobe AIR App Packager for Windows (.bat) and Mac (.sh) - iOS, Android and Amazon</b>
 ======================================
 
-This is a demo Adobe AIR app for both iOS and Android devices which includes Command Line (.bat) files for Windows users and Terminal (.sh) files for Mac users. This project was created so that an AIR app can be set up without having to edit multiple command line files.
+This is a demo Adobe AIR app for both iOS, Android and Amazon devices which includes Command Line (.bat) files for Windows users and Terminal (.sh) files for Mac users. This project was created so that an AIR app can be set up without having to edit multiple command line files.
 
 (Step 1) Create Certificates and Provisional Profiles
 ---------
@@ -21,6 +21,10 @@ You will need to supply your own iOS and Android certificates and provisional pr
 
 * certificates/Android-Certificate.p12
 
+#### Amazon ####
+
+* certificates/Amazon-Certificate.p12
+
 
 (Step 2) Include native extensions
 ---------
@@ -30,7 +34,7 @@ Native extensions can be simply thought of as classes which allow AIR apps to ac
 * [Milkman Games](http://www.milkmangames.com/blog/tools/) (step by step documentation)
 * [distriqt](http://www.airnativeextensions.com/extensions/)
 
-<b>iOS and Android:</b> - You will need to follow these instructions for each native extension you wish to use
+You will need to follow these instructions for each native extension you wish to use
 
 * Create a copy of the native extension's .ane and .swc files
 * Place the .ane in the extensions folder
@@ -52,7 +56,11 @@ Native extensions can be simply thought of as classes which allow AIR apps to ac
 
 * Open manifests/Android-app.xml
 
-#### iOS and Android ####
+#### Amazon ####
+
+* Open manifests/Amazon-app.xml
+
+#### iOS, Android and Amazon ####
 
 Edit the elements shown below:
 
@@ -64,7 +72,7 @@ Edit the elements shown below:
 <extensionID>com.extensions.example</extensionID> <!-- If you are not using a native extension remove this line -->
 ```
 
-If you are using a native extension(s) be sure to follow the instructions included in regards to modifying the manifest file(s). This may be referred to as the application descriptor. Do not skip this step, especially if building for Android devices.
+If you are using a native extension(s) be sure to follow the instructions included in regards to modifying the manifest file(s). This may be referred to as the application descriptor. Do not skip this step, especially if building for Android/Amazon devices.
 
 
 (Step 4) Setup App Packager

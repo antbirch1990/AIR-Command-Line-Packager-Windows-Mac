@@ -11,7 +11,7 @@ set ios_distribution_password=password
 set ios_adhoc_provisional_profile=certificates/App_AdHoc.mobileprovision
 set ios_development_provisional_profile=certificates/App_Development.mobileprovision
 set ios_distribution_provisional_profile=certificates/App_Distribution.mobileprovision
-set ios_ipa=Test.ipa
+set ios_ipa=Test_ios.ipa
 set ios_development_manifest=manifests/iOS_Development-app.xml
 set ios_distribution_manifest=manifests/iOS_Distribution-app.xml
 set ios_swf_name=Test.swf
@@ -21,7 +21,16 @@ set ios_bundle_id=com.website.appName
 set android_certificate=certificates/Android-Certificate.p12
 set android_password=password
 
-set android_apk=Test.apk
+set android_apk=Test_android.apk
 set android_manifest=manifests/Android-app.xml
 set android_swf_name=Test.swf
 set android_bundle_id=com.website.appName
+
+::: Amazon :::
+set amazon_certificate=certificates/Amazon-Certificate.p12
+set amazon_password=password
+
+set amazon_apk=Test_amazon.apk
+set amazon_manifest=manifests/Amazon-app.xml
+set amazon_swf_name=Test.swf
+set amazon_bundle_id=com.website.appName

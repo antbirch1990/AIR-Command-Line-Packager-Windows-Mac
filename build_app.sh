@@ -15,6 +15,9 @@ android_target=apk
 android_debug_target=apk-debug
 android_captive_runtime_target=apk-captive-runtime
 
+### Amazon Variables ###
+amazon_platform=amazon
+
 ## Generic Variables ###
 packaging_action=null
 packaging_platform=null
@@ -57,6 +60,12 @@ function packageApp() {
             bash ./commands/compile_apk.sh
             echo ""
             echo "Compile for Android complete"
+        
+        elif [ "$platform" = "$amazon_platform" ]; then
+            echo ""
+            bash ./commands/compile_apk.sh
+            echo ""
+            echo "Compile for Amazon complete"
         fi
         
     elif [ "$packaging_action" = "compileremovepush" ]; then
@@ -70,6 +79,12 @@ function packageApp() {
             bash ./commands/compile_apk.sh
             echo ""
             echo "Compile for Android complete"
+        
+        elif [ "$platform" = "$amazon_platform" ]; then
+            echo ""
+            bash ./commands/compile_apk.sh
+            echo ""
+            echo "Compile for Amazon complete"
         fi
 
         bash ./commands/remove_from_device.sh
@@ -260,6 +275,70 @@ function showAndroidTargets() {
     done
 }
 
+function showAmazonTargets() {
+    ### Amazon Target Selection ###
+    echo ""
+    echo "----------"
+    echo ""
+    echo "Select Amazon Target:"
+    echo ""
+    echo "[1] normal (apk)"
+    echo "[2] debug (apk-debug)"
+    echo "[3] captive runtime (apk-captive-runtime)"
+    echo ""
+    echo "[0] Exit"
+    echo ""
+    echo -n "Target: "
+
+    while :
+    do
+
+    read targetselection
+    
+    case $targetselection in
+        1 ) target="$android_target";
+            certificate="$amazon_certificate";
+            password="$amazon_password";
+            provisionalprofile=null;
+            filename="$amazon_apk";
+            manifest="$amazon_manifest";
+            swfname="$amazon_swf_name";
+            platform="$android_platform";
+            bundleid="$amazon_bundle_id";
+            packageApp
+            break
+            ;;
+
+        2 ) target="$android_debug_target";
+            certificate="$amazon_certificate";
+            password="$amazon_password";
+            provisionalprofile=null;
+            filename="$amazon_apk";
+            manifest="$amazon_manifest";
+            swfname="$amazon_swf_name";
+            platform="$android_platform";
+            bundleid="$amazon_bundle_id";
+            packageApp
+            break
+            ;;
+
+        3 ) target="$android_captive_runtime_target";
+            certificate="$amazon_certificate";
+            password="$amazon_password";
+            provisionalprofile=null;
+            filename="$amazon_apk";
+            manifest="$amazon_manifest";
+            swfname="$amazon_swf_name";
+            platform="$android_platform";
+            packageApp
+            break
+            ;;
+
+        0 ) exit ;;
+    esac
+    done
+}
+
 function showCompilerTargets() {
     if [ "$packaging_platform" = "$ios_platform" ]; then
         if [ "$packaging_action" = "removepush" ]; then
@@ -271,6 +350,7 @@ function showCompilerTargets() {
         else 
             showIOSTargets
         fi
+        
     elif [ "$packaging_platform" = "$android_platform" ]; then
         if [ "$packaging_action" = "removepush" ]; then
             filename="$android_apk";
@@ -281,26 +361,22 @@ function showCompilerTargets() {
         else 
             showAndroidTargets
         fi
-    else
+        
+     elif [ "$packaging_platform" = "$amazon_platform" ]; then
         if [ "$packaging_action" = "removepush" ]; then
-            echo ""
-            filename="$ios_ipa";
-            platform="$ios_platform";
-            bundleid="$ios_bundle_id";
-            packageApp
-            echo ""
-            filename="$android_apk";
+            filename="$amazon_apk";
             platform="$android_platform";
-            bundleid="$android_bundle_id";
+            bundleid="$amazon_bundle_id";
             packageApp
-            echo ""
-            echo "----------"
-            echo ""
             break
         else 
-            showIOSTargets
-            showAndroidTargets
+            showAmazonTargets
         fi
+        
+    else
+        showIOSTargets
+        showAndroidTargets
+        showAmazonTargets
     fi
     echo ""
     echo "----------"
@@ -347,6 +423,34 @@ function showCompiler() {
     done
 }
 
+function showCompilerForAll() {
+    ### Action Selection ###
+    echo ""
+    echo "----------"
+    echo ""
+    echo "Select Action:"
+    echo ""
+    echo "[1] Compile"
+    echo ""
+    echo "[0] Exit"
+    echo ""
+    echo -n "Action: "
+
+    while :
+    do
+    read actionselection
+    
+    case $actionselection in
+        1 ) packaging_action=compile
+            showCompilerTargets
+            break
+            ;;
+
+        0 ) exit ;;
+    esac
+    done
+}
+
 function showPlatform() {
     ### Platform Selection ###
     echo ""
@@ -356,7 +460,8 @@ function showPlatform() {
     echo ""
     echo "[1] iOS"
     echo "[2] Android"
-    echo "[3] Both"
+    echo "[3] Amazon"
+    echo "[4] All"
     echo ""
     echo "[0] Exit"
     echo ""
@@ -377,8 +482,13 @@ function showPlatform() {
             break
             ;;
             
-        3 ) packaging_platform="both"
+        3 ) packaging_platform="$amazon_platform"
             showCompiler
+            break
+            ;;
+            
+        4 ) packaging_platform="both"
+            showCompilerForAll
             break
             ;;
 
