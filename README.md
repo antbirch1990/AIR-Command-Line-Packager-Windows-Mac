@@ -6,7 +6,7 @@ This is a demo Adobe AIR app for both iOS, Android and Amazon devices which incl
 (Step 1) Create Certificates and Provisional Profiles
 ---------
 
-You will need to supply your own iOS and Android certificates and provisional profiles for publishing to the App Store and Google Play Store. AdHoc certificate and provisional profile only needed if you wish to publish for AdHoc.
+You will need to supply your own iOS and Android certificates and provisional profiles for publishing to the App Store, Google Play Store and Amazon Appstore. AdHoc certificate and provisional profile only needed if you wish to publish for AdHoc.
 
 #### iOS ####
 
