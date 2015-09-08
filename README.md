@@ -92,7 +92,7 @@ export airsdk=../../AIR_SDK/AIR16.0/bin/adt
 
 #### Windows ####
 
-* Open commands/setup_app.sh in a text editor
+* Open commands/setup_app.bat in a text editor
 * Edit the path shown below to point to the location of your AIR SDK
 * Make any changes to the file paths as necessary
 
