@@ -374,18 +374,18 @@ if /I '%packaging_action%'=='%removepush%' goto:removePushApp
 :compileApp
 if /I '%platform%'=='%ios_platform%' (
 	echo.
-	call commands\compile_ipa.bat %target% %certificate% %password% %provisionalprofile% %filename% %manifest% %swfname% %platform% %bundleid%
+	call commands\compile_ios.bat %target% %certificate% %password% %provisionalprofile% %filename% %manifest% %swfname% %platform% %bundleid%
 	echo Compile for iOS complete
 )
 
 if /I '%platform%'=='%android_platform%' (
-	call commands\compile_apk.bat %target% %certificate% %password% %provisionalprofile% %filename% %manifest% %swfname% %platform% %bundleid%
+	call commands\compile_android.bat %target% %certificate% %password% %provisionalprofile% %filename% %manifest% %swfname% %platform% %bundleid%
 	echo.
 	echo Compile for Android complete
 )
 
 if /I '%platform%'=='%amazon_platform%' (
-	call commands\compile_apk.bat %target% %certificate% %password% %provisionalprofile% %filename% %manifest% %swfname% %platform% %bundleid%
+	call commands\compile_amazon.bat %target% %certificate% %password% %provisionalprofile% %filename% %manifest% %swfname% %platform% %bundleid%
 	echo.
 	echo Compile for Amazon complete
 )
@@ -419,18 +419,18 @@ if /I '%packaging_platform%'=='%both_platforms%' (
 :compileRemovePushApp
 if /I '%platform%'=='%ios_platform%' (
 	echo.
-	call commands\compile_ipa.bat %target% %certificate% %password% %provisionalprofile% %filename% %manifest% %swfname% %platform% %bundleid%
+	call commands\compile_ios.bat %target% %certificate% %password% %provisionalprofile% %filename% %manifest% %swfname% %platform% %bundleid%
 	echo Compile for iOS complete
 )
 
 if /I '%platform%'=='%android_platform%' (
-	call commands\compile_apk.bat %target% %certificate% %password% %provisionalprofile% %filename% %manifest% %swfname% %platform% %bundleid%
+	call commands\compile_android.bat %target% %certificate% %password% %provisionalprofile% %filename% %manifest% %swfname% %platform% %bundleid%
 	echo.
 	echo Compile for Android complete
 )
 
 if /I '%platform%'=='%amazon_platform%' (
-	call commands\compile_apk.bat %target% %certificate% %password% %provisionalprofile% %filename% %manifest% %swfname% %platform% %bundleid%
+	call commands\compile_amazon.bat %target% %certificate% %password% %provisionalprofile% %filename% %manifest% %swfname% %platform% %bundleid%
 	echo.
 	echo Compile for Amazon complete
 )

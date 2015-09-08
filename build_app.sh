@@ -35,8 +35,9 @@ export platform=null
 export bundleid=null
 
 ### Allow Permissions ###
-chmod +x ./commands/compile_ipa.sh
-chmod +x ./commands/compile_apk.sh
+chmod +x ./commands/compile_ios.sh
+chmod +x ./commands/compile_android.sh
+chmod +x ./commands/compile_amazon.sh
 chmod +x ./commands/remove_from_device.sh
 chmod +x ./commands/push_to_device.sh
 chmod +x ./commands/setup_app.sh
@@ -52,18 +53,18 @@ function packageApp() {
     if [ "$packaging_action" = "compile" ]; then
         if [ "$platform" = "$ios_platform" ]; then
             echo ""
-            bash ./commands/compile_ipa.sh
+            bash ./commands/compile_ios.sh
             echo "Compile for iOS complete"
             
         elif [ "$platform" = "$android_platform" ]; then
             echo ""
-            bash ./commands/compile_apk.sh
+            bash ./commands/compile_android.sh
             echo ""
             echo "Compile for Android complete"
         
         elif [ "$platform" = "$amazon_platform" ]; then
             echo ""
-            bash ./commands/compile_apk.sh
+            bash ./commands/compile_amazon.sh
             echo ""
             echo "Compile for Amazon complete"
         fi
@@ -71,18 +72,18 @@ function packageApp() {
     elif [ "$packaging_action" = "compileremovepush" ]; then
         if [ "$platform" = "$ios_platform" ]; then
             echo ""
-            bash ./commands/compile_ipa.sh
+            bash ./commands/compile_ios.sh
             echo "Compile for iOS complete"
             
         elif [ "$platform" = "$android_platform" ]; then
             echo ""
-            bash ./commands/compile_apk.sh
+            bash ./commands/compile_android.sh
             echo ""
             echo "Compile for Android complete"
         
         elif [ "$platform" = "$amazon_platform" ]; then
             echo ""
-            bash ./commands/compile_apk.sh
+            bash ./commands/compile_amazon.sh
             echo ""
             echo "Compile for Amazon complete"
         fi
@@ -303,7 +304,7 @@ function showAmazonTargets() {
             filename="$amazon_apk";
             manifest="$amazon_manifest";
             swfname="$amazon_swf_name";
-            platform="$android_platform";
+            platform="$amazon_platform";
             bundleid="$amazon_bundle_id";
             packageApp
             break
@@ -316,7 +317,7 @@ function showAmazonTargets() {
             filename="$amazon_apk";
             manifest="$amazon_manifest";
             swfname="$amazon_swf_name";
-            platform="$android_platform";
+            platform="$amazon_platform";
             bundleid="$amazon_bundle_id";
             packageApp
             break
@@ -329,7 +330,7 @@ function showAmazonTargets() {
             filename="$amazon_apk";
             manifest="$amazon_manifest";
             swfname="$amazon_swf_name";
-            platform="$android_platform";
+            platform="$amazon_platform";
             packageApp
             break
             ;;
