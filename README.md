@@ -1,7 +1,9 @@
 <b>Adobe AIR App Packager for Windows (.bat) and Mac (.sh) - iOS, Android and Amazon</b>
 ======================================
 
-This is a demo Adobe AIR app for both iOS, Android and Amazon devices which includes Command Line (.bat) files for Windows users and Terminal (.sh) files for Mac users. This project was created so that an AIR app can be set up without having to edit multiple command line files.
+This is a demo Adobe AIR app for iOS, Android and Amazon devices which includes Command Line (.bat) files for Windows users and Terminal (.sh) files for Mac users. This project was created so that an AIR app can be set up without having to edit multiple command line files. 
+
+iOS packages for .ipa and both Android and Amazon package to .apk
 
 (Step 1) Create Certificates and Provisional Profiles
 ---------
