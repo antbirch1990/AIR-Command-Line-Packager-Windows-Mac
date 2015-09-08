@@ -8,7 +8,7 @@ iOS packages for .ipa and both Android and Amazon package to .apk
 (Step 1) Create Certificates and Provisional Profiles
 ---------
 
-You will need to supply your own iOS and Android certificates and provisional profiles for publishing to the App Store, Google Play Store and Amazon Appstore. AdHoc certificate and provisional profile only needed if you wish to publish for AdHoc.
+You will need to supply your own iOS, Android and Amazon certificates and provisional profiles for publishing to the App Store, Google Play Store and Amazon Appstore. AdHoc certificate and provisional profile only needed if you wish to publish for AdHoc.
 
 #### iOS ####
 
@@ -31,7 +31,7 @@ You will need to supply your own iOS and Android certificates and provisional pr
 (Step 2) Include native extensions
 ---------
 
-Native extensions can be simply thought of as classes which allow AIR apps to access features which would traditionally only be available to natively programmed apps. If you are not including native extensions with your AIR app then simply skip this step. You can purchase very well documented native extensions from:
+Native extensions can be simply thought of as classes which allow AIR apps to access features which would traditionally only be available to natively programmed apps. If you are not including native extensions with your AIR app then simply skip this step. You can purchase very well documented native extensions for iOS and Android from:
 
 * [Milkman Games](http://www.milkmangames.com/blog/tools/) (step by step documentation)
 * [distriqt](http://www.airnativeextensions.com/extensions/)
