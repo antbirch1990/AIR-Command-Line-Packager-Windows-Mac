@@ -304,7 +304,7 @@ function showAmazonTargets() {
             filename="$amazon_apk";
             manifest="$amazon_manifest";
             swfname="$amazon_swf_name";
-            platform="$amazon_platform";
+            platform="$android_platform";
             bundleid="$amazon_bundle_id";
             packageApp
             break
@@ -317,7 +317,7 @@ function showAmazonTargets() {
             filename="$amazon_apk";
             manifest="$amazon_manifest";
             swfname="$amazon_swf_name";
-            platform="$amazon_platform";
+            platform="$android_platform";
             bundleid="$amazon_bundle_id";
             packageApp
             break
@@ -330,7 +330,7 @@ function showAmazonTargets() {
             filename="$amazon_apk";
             manifest="$amazon_manifest";
             swfname="$amazon_swf_name";
-            platform="$amazon_platform";
+            platform="$android_platform";
             packageApp
             break
             ;;

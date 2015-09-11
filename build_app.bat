@@ -335,7 +335,7 @@ if /I '%amazontargetselection%'=='1' (
 	set filename=%amazon_apk%
 	set manifest=%amazon_manifest%
 	set swfname=%amazon_swf_name%
-	set platform=%amazon_platform%
+	set platform=%android_platform%
 	set bundleid=%amazon_bundle_id%
 )
 
@@ -347,7 +347,7 @@ if /I '%amazontargetselection%'=='2' (
 	set filename=%amazon_apk%
 	set manifest=%amazon_manifest%
 	set swfname=%amazon_swf_name%
-	set platform=%amazon_platform%
+	set platform=%android_platform%
 	set bundleid=%amazon_bundle_id%
 )
 
@@ -359,7 +359,7 @@ if /I '%amazontargetselection%'=='3' (
 	set filename=%amazon_apk%
 	set manifest=%amazon_manifest%
 	set swfname=%amazon_swf_name%
-	set platform=%amazon_platform%
+	set platform=%android_platform%
 	set bundleid=%amazon_bundle_id%
 )
 
