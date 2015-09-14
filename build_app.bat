@@ -53,6 +53,10 @@ set airsdk=%air_sdk%
 
 ::: Platform Selection :::
 echo.
+echo ---
+echo Created by Anthony Birch
+echo ---
+echo.
 echo Package App
 echo.
 echo Select Platform:
