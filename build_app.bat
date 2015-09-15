@@ -339,7 +339,7 @@ if /I '%amazontargetselection%'=='1' (
 	set filename=%amazon_apk%
 	set manifest=%amazon_manifest%
 	set swfname=%amazon_swf_name%
-	set platform=%amazon_platform%
+	set platform=%android_platform%
 	set bundleid=%amazon_bundle_id%
 )
 
@@ -351,7 +351,7 @@ if /I '%amazontargetselection%'=='2' (
 	set filename=%amazon_apk%
 	set manifest=%amazon_manifest%
 	set swfname=%amazon_swf_name%
-	set platform=%amazon_platform%
+	set platform=%android_platform%
 	set bundleid=%amazon_bundle_id%
 )
 
@@ -363,7 +363,7 @@ if /I '%amazontargetselection%'=='3' (
 	set filename=%amazon_apk%
 	set manifest=%amazon_manifest%
 	set swfname=%amazon_swf_name%
-	set platform=%amazon_platform%
+	set platform=%android_platform%
 	set bundleid=%amazon_bundle_id%
 )
 
@@ -396,18 +396,37 @@ if /I '%packaging_platform%'=='%amazon_platform%' (
 
 if /I '%packaging_platform%'=='%both_platforms%' (
 	if /I '%last_compiled%'=='%none%' (
-		set last_compiled=%ios_platform%
 		echo.
+		call commands\compile_ios.bat %target% %certificate% %password% %provisionalprofile% %filename% %manifest% %swfname% %platform% %bundleid%
+		
+		set last_compiled=%ios_platform%
+		echo Compile for iOS complete
+		echo.
+		
 		goto:compileForAndroid
 	)
 	
 	if /I '%last_compiled%'=='%ios_platform%' (
-		set last_compiled=%android_platform%
+		call commands\compile_android.bat %target% %certificate% %password% %provisionalprofile% %filename% %manifest% %swfname% %platform% %bundleid%
 		echo.
+		
+		set last_compiled=%android_platform%
+		echo Compile for Android complete
+		echo.
+		
 		goto:compileForAmazon
 	)
 	
 	if /I '%last_compiled%'=='%android_platform%' (
+		call commands\compile_amazon.bat %target% %certificate% %password% %provisionalprofile% %filename% %manifest% %swfname% %platform% %bundleid%
+		echo.
+	
+		set last_compiled=%amazon_platform%
+		echo Compile for Amazon complete
+		echo.
+	)
+	
+	if /I '%last_compiled%'=='%amazon_platform%' (
 		echo.
 		echo ----------
 		echo.
