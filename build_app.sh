@@ -21,6 +21,7 @@ amazon_platform=amazon
 ## Generic Variables ###
 packaging_action=null
 packaging_platform=null
+device_platform=null
 
 ### Export Variables ###
 export airsdk=null
@@ -51,18 +52,18 @@ function packageApp() {
 	### Package Selected App ###
 
     if [ "$packaging_action" = "compile" ]; then
-        if [ "$platform" = "$ios_platform" ]; then
+        if [ "$packaging_platform" = "$ios_platform" ]; then
             echo ""
             bash ./commands/compile_ios.sh
             echo "Compile for iOS complete"
             
-        elif [ "$platform" = "$android_platform" ]; then
+        elif [ "$packaging_platform" = "$android_platform" ]; then
             echo ""
             bash ./commands/compile_android.sh
             echo ""
             echo "Compile for Android complete"
         
-        elif [ "$platform" = "$amazon_platform" ]; then
+        elif [ "$packaging_platform" = "$amazon_platform" ]; then
             echo ""
             bash ./commands/compile_amazon.sh
             echo ""
@@ -70,18 +71,18 @@ function packageApp() {
         fi
         
     elif [ "$packaging_action" = "compileremovepush" ]; then
-        if [ "$platform" = "$ios_platform" ]; then
+        if [ "$packaging_platform" = "$ios_platform" ]; then
             echo ""
             bash ./commands/compile_ios.sh
             echo "Compile for iOS complete"
             
-        elif [ "$platform" = "$android_platform" ]; then
+        elif [ "$packaging_platform" = "$android_platform" ]; then
             echo ""
             bash ./commands/compile_android.sh
             echo ""
             echo "Compile for Android complete"
         
-        elif [ "$platform" = "$amazon_platform" ]; then
+        elif [ "$packaging_platform" = "$amazon_platform" ]; then
             echo ""
             bash ./commands/compile_amazon.sh
             echo ""
@@ -92,6 +93,8 @@ function packageApp() {
         bash ./commands/push_to_device.sh
         
     else
+        
+        echo ""
         bash ./commands/remove_from_device.sh
         bash ./commands/push_to_device.sh
     fi
@@ -375,8 +378,11 @@ function showCompilerTargets() {
         fi
         
     else
+        packaging_platform="$ios_platform"
         showIOSTargets
+        packaging_platform="$android_platform"
         showAndroidTargets
+        packaging_platform="$amazon_platform"
         showAmazonTargets
     fi
     echo ""
@@ -487,7 +493,7 @@ function showPlatform() {
             break
             ;;
             
-        3 ) packaging_platform="$amazon_platform"
+        3 ) packaging_platform="$android_platform"
             showCompiler
             break
             ;;

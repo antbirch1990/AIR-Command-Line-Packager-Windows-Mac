@@ -316,7 +316,7 @@ if /I '%androidtargetselection%'=='0' goto:quit
 goto:packageApp
 
 :showAmazonTargets
-::: Android Target Selection :::
+::: Amazon Target Selection :::
 echo ----------
 echo.
 echo Select Amazon Target:
@@ -339,7 +339,7 @@ if /I '%amazontargetselection%'=='1' (
 	set filename=%amazon_apk%
 	set manifest=%amazon_manifest%
 	set swfname=%amazon_swf_name%
-	set platform=%android_platform%
+	set platform=%amazon_platform%
 	set bundleid=%amazon_bundle_id%
 )
 
@@ -351,7 +351,7 @@ if /I '%amazontargetselection%'=='2' (
 	set filename=%amazon_apk%
 	set manifest=%amazon_manifest%
 	set swfname=%amazon_swf_name%
-	set platform=%android_platform%
+	set platform=%amazon_platform%
 	set bundleid=%amazon_bundle_id%
 )
 
@@ -363,7 +363,7 @@ if /I '%amazontargetselection%'=='3' (
 	set filename=%amazon_apk%
 	set manifest=%amazon_manifest%
 	set swfname=%amazon_swf_name%
-	set platform=%android_platform%
+	set platform=%amazon_platform%
 	set bundleid=%amazon_bundle_id%
 )
 
@@ -376,19 +376,19 @@ if /I '%packaging_action%'=='%compileremovepush%' goto:compileRemovePushApp
 if /I '%packaging_action%'=='%removepush%' goto:removePushApp
 
 :compileApp
-if /I '%platform%'=='%ios_platform%' (
+if /I '%packaging_platform%'=='%ios_platform%' (
 	echo.
 	call commands\compile_ios.bat %target% %certificate% %password% %provisionalprofile% %filename% %manifest% %swfname% %platform% %bundleid%
 	echo Compile for iOS complete
 )
 
-if /I '%platform%'=='%android_platform%' (
+if /I '%packaging_platform%'=='%android_platform%' (
 	call commands\compile_android.bat %target% %certificate% %password% %provisionalprofile% %filename% %manifest% %swfname% %platform% %bundleid%
 	echo.
 	echo Compile for Android complete
 )
 
-if /I '%platform%'=='%amazon_platform%' (
+if /I '%packaging_platform%'=='%amazon_platform%' (
 	call commands\compile_amazon.bat %target% %certificate% %password% %provisionalprofile% %filename% %manifest% %swfname% %platform% %bundleid%
 	echo.
 	echo Compile for Amazon complete
@@ -421,19 +421,19 @@ if /I '%packaging_platform%'=='%both_platforms%' (
 )
 
 :compileRemovePushApp
-if /I '%platform%'=='%ios_platform%' (
+if /I '%packaging_platform%'=='%ios_platform%' (
 	echo.
 	call commands\compile_ios.bat %target% %certificate% %password% %provisionalprofile% %filename% %manifest% %swfname% %platform% %bundleid%
 	echo Compile for iOS complete
 )
 
-if /I '%platform%'=='%android_platform%' (
+if /I '%packaging_platform%'=='%android_platform%' (
 	call commands\compile_android.bat %target% %certificate% %password% %provisionalprofile% %filename% %manifest% %swfname% %platform% %bundleid%
 	echo.
 	echo Compile for Android complete
 )
 
-if /I '%platform%'=='%amazon_platform%' (
+if /I '%packaging_platform%'=='%amazon_platform%' (
 	call commands\compile_amazon.bat %target% %certificate% %password% %provisionalprofile% %filename% %manifest% %swfname% %platform% %bundleid%
 	echo.
 	echo Compile for Amazon complete
