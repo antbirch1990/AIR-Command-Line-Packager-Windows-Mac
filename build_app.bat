@@ -104,7 +104,7 @@ if /I not '%packaging_platform%'=='%both_platforms%' (
 		set packaging_action=%compileremovepush%
 	)
 	
-	if /I '%packaging_platform%'=='3' (
+	if /I '%actionselection%'=='3' (
 		set packaging_action=%removepush%
 	)
 )

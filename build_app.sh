@@ -56,18 +56,21 @@ function packageApp() {
             echo ""
             bash ./commands/compile_ios.sh
             echo "Compile for iOS complete"
+            echo ""
             
         elif [ "$packaging_platform" = "$android_platform" ]; then
             echo ""
             bash ./commands/compile_android.sh
             echo ""
             echo "Compile for Android complete"
+            echo ""
         
         elif [ "$packaging_platform" = "$amazon_platform" ]; then
             echo ""
             bash ./commands/compile_amazon.sh
             echo ""
             echo "Compile for Amazon complete"
+            echo ""
         fi
         
     elif [ "$packaging_action" = "compileremovepush" ]; then
@@ -75,6 +78,7 @@ function packageApp() {
             echo ""
             bash ./commands/compile_ios.sh
             echo "Compile for iOS complete"
+            echo ""
             
         elif [ "$packaging_platform" = "$android_platform" ]; then
             echo ""
@@ -92,11 +96,21 @@ function packageApp() {
         bash ./commands/remove_from_device.sh
         bash ./commands/push_to_device.sh
         
+        if [ "$packaging_platform" = "$ios_platform" ]; then 
+            echo ""
+        fi
+        
     else
         
-        echo ""
+        if [ "$packaging_platform" = "$ios_platform" ]; then 
+            echo ""
+        fi
+        
         bash ./commands/remove_from_device.sh
         bash ./commands/push_to_device.sh
+        echo ""
+        echo "----------"
+        echo ""
     fi
 }
 
@@ -385,7 +399,7 @@ function showCompilerTargets() {
         packaging_platform="$amazon_platform"
         showAmazonTargets
     fi
-    echo ""
+    
     echo "----------"
     echo ""
 }
@@ -493,7 +507,7 @@ function showPlatform() {
             break
             ;;
             
-        3 ) packaging_platform="$android_platform"
+        3 ) packaging_platform="$amazon_platform"
             showCompiler
             break
             ;;
